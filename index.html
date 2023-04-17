@@ -107,13 +107,13 @@
                 // Darken the required number of desks
                 var desks = document.getElementsByClassName('desk');
                 for (var j = 0; j < numDesks; j++) {
-                    desks[j].style.backgroundColor = 'black';
+                    desks[j].style.filter = "grayscale(100%)";
                 }
                 
                 // Print the description to the right division
                 var description = cols[1];
                 var rightDiv = document.getElementById('right');
-                rightDiv.innerHTML += '<p>' + description + '</p>';
+                rightDiv.innerHTML = '<p>' + description + '</p>';
                 
                 // Wait for 3 seconds before moving to the next row
                 if (i < rows.length - 1) {
