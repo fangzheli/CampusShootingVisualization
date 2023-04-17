@@ -105,7 +105,7 @@
         var rows = data.trim().split('\n');
         var deskIndex = 0
         var interval = 2000
-        var level = 10
+        var level = 7
         for (var i = 0; i < rows.length; i++) {
             // Split each row into columns and get the number of desks to darken
             var cols = rows[i].split(',');
@@ -119,7 +119,7 @@
             }
             
             // Print the description to the right division
-            var description = cols[1];
+            var description = cols[1].replace(/\\/g, '');
             var rightDiv = document.getElementById('right');
             rightDiv.innerHTML = '<p>' + description + '</p>';
             
