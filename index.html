@@ -99,6 +99,7 @@
         .then(data => {
             // Split the CSV file into rows and iterate through each row
             var rows = data.split('\n');
+            var desk_index = 0
             for (var i = 0; i < rows.length; i++) {
                 // Split each row into columns and get the number of desks to darken
                 var cols = rows[i].split(',');
@@ -107,7 +108,8 @@
                 // Darken the required number of desks
                 var desks = document.getElementsByClassName('desk');
                 for (var j = 0; j < numDesks; j++) {
-                    desks[j].style.filter = "grayscale(100%)";
+                    desks[desk_index].style.filter = "grayscale(100%)";
+                    desk_index ++;
                 }
                 
                 // Print the description to the right division
