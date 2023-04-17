@@ -41,13 +41,17 @@
       }
 
       .desk {
-        width: calc(10% - 20px);
+        width: calc(9% - 20px);
         height: calc(7.5% - 20px);
         margin: 10px;
         background-image: url('desk.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
+      }
+
+      .desk.colored {
+        filter: grayscale(0%);
       }
 
       .desk:nth-child(10n + 1) {
@@ -89,7 +93,7 @@
       </div>
     </div>
     <div id="right">
-      <p>This is the right side</p>
+      <p></p>
     </div>
     <script>
         // Read data from the CSV file
@@ -98,8 +102,10 @@
         .then(response => response.text())
         .then(data => {
             // Split the CSV file into rows and iterate through each row
-            var rows = data.split('\n');
+            var rows = data.trim().split('\n');
             var desk_index = 0
+            var interval = 2000
+            var level = 10
             for (var i = 0; i < rows.length; i++) {
                 // Split each row into columns and get the number of desks to darken
                 var cols = rows[i].split(',');
@@ -121,10 +127,14 @@
                 if (i < rows.length - 1) {
                     setTimeout(function() {
                         rightDiv.innerHTML = '';
-                    }, 3000);
+                    }, interval - level * desk_index);
                 }
             }
         });
+        rightDiv.innerHTML = '';
+        for (var j = 0; j < desk_index; j++) {
+          desks[j].classList.add('colored');
+        }
     </script>
     
   </body>
