@@ -54,11 +54,11 @@
         filter: grayscale(0%);
       }
 
-      .desk:nth-child(10n + 1) {
+      .desk:nth-child(13n + 1) {
         margin-left: 0;
       }
 
-      .desk:nth-child(10n) {
+      .desk:nth-child(13n) {
         margin-right: 0;
       }
 
@@ -98,12 +98,12 @@
     <script>
         // Read data from the CSV file
         var csvFile = 'data.csv'; // replace with your file name
+        var desk_index = 0
         fetch(csvFile)
         .then(response => response.text())
         .then(data => {
             // Split the CSV file into rows and iterate through each row
             var rows = data.trim().split('\n');
-            var desk_index = 0
             var interval = 2000
             var level = 10
             for (var i = 0; i < rows.length; i++) {
