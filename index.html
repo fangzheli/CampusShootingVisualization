@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -54,13 +53,13 @@
         filter: grayscale(0%);
       }
 
-      .desk:nth-child(13n + 1) {
+      /* .desk:nth-child(13n + 1) {
         margin-left: 0;
       }
 
       .desk:nth-child(13n) {
         margin-right: 0;
-      }
+      } */
 
       #right {
         position: absolute;
@@ -98,7 +97,7 @@
     <script>
         // Read data from the CSV file
         var csvFile = 'data.csv'; // replace with your file name
-        var desk_index = 0
+        var deskIndex = 0
         fetch(csvFile)
         .then(response => response.text())
         .then(data => {
@@ -114,8 +113,8 @@
                 // Darken the required number of desks
                 var desks = document.getElementsByClassName('desk');
                 for (var j = 0; j < numDesks; j++) {
-                    desks[desk_index].style.filter = "grayscale(100%)";
-                    desk_index ++;
+                    desks[deskIndex].style.filter = "grayscale(100%)";
+                    deskIndex ++;
                 }
                 
                 // Print the description to the right division
@@ -127,11 +126,11 @@
                 if (i < rows.length - 1) {
                     setTimeout(function() {
                         rightDiv.innerHTML = '';
-                    }, interval - level * desk_index);
+                    }, interval - level * deskIndex);
                 }
             }
         });
-        for (var j = 0; j < desk_index; j++) {
+        for (var j = 0; j < deskIndex; j++) {
           desks[j].classList.add('colored');
         }
     </script>

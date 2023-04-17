@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Classroom Simulation</title>
+    <style>
+      body {
+        /* position: relative; */
+        margin: 0;
+        padding: 0;
+      }
+
+      #left {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 60%;
+        background-color: white;
+      }
+
+      #blackboard {
+        /* position: absolute; */
+        margin: 0 auto;
+        top: 0;
+        height: 10%;
+        width: 40%;
+        background-image: url('blackboard.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      #classroom {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: 90%;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+
+      .desk {
+        width: calc(8.5% - 20px);
+        height: calc(7.5% - 20px);
+        margin: 10px;
+        background-image: url('desk.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* .desk.colored {
+        filter: grayscale(0%);
+      } */
+
+      /* .desk:nth-child(11n + 1) {
+        margin-left: 0;
+      }
+
+      .desk:nth-child(11n) {
+        margin-right: 0;
+      } */
+
+      #right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1a0b0b;
+      }
+
+      #right p {
+        font-size: 24px;
+        text-align: center;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="left">
+      <div id="blackboard"></div>
+      <div id="classroom">
+        <script>
+            for (var i = 1; i <= 133; i++) {
+              document.write('<div class="desk"></div>');
+            }
+        </script>
+      </div>
+    </div>
+    <div id="right">
+      <p></p>
+    </div>
+    <script>
+        var deskIndex = 0
+        var interval = 2000
+        var level = 100
+        const casualty = [2, 2, 2, 8, 2, 5, 3, 3, 26, 2, 2, 4, 2, 2, 2, 17, 10, 2, 2, 2, 3, 2, 2, 4, 2, 20]
+        const dates = ['2000-03-10','2001-03-05','2003-09-24','2005-03-21','2005-07-18','2006-10-02','2007-08-04','2012-02-27','2012-12-14','2013-06-19','2014-08-14','2014-10-24','2017-12-07','2017-12-31','2018-01-23','2018-02-14','2018-05-18','2019-06-29','2019-11-14','2019-11-24','2020-05-05',
+'2020-10-29','2021-02-14','2021-11-30','2022-01-17','2022-05-24']
+        const summary = ['Shots fired during fight at school dance',
+ 'Bullying, planned attack, planned suicide by cop',
+ 'Targeted two bullies, other students in area were not shot at',
+ 'Planned attack on school, studied Columbine, wore trench coat, had been bullied',
+ 'Police tried to break up fight between female students, brother fired at officers killing one',
+ 'Shot girls in Amish school due to 20 year grudge',
+ 'Shot 4 friends at school, MS-13 directed shooting',
+ 'Planned attack, fired at random victims then walked out of school to surrender to police',
+ 'Shooter though society was broken and mass shooting helps save children from negative influence',
+ 'School maintenance worker killed co-workers',
+ 'Dispute - ongoing feud - possible gang violence',
+ 'Shooting in cafeteria after break-up with girlfriend',
+ 'Planned mass shooting attack by former student',
+ 'Drive-by in parking lot outside of school during basketball game',
+ 'Planned attack. Shooting was science experiment to see how people reacted; belief human life has no purpose. ',
+ 'Planned attack by former student',
+ 'Planned attack after bullying, 30 minute standoff with police before surrendering',
+ 'Two men shot and killed during fight between two groups on school track',
+ 'Student fired at multiple students in school courtyard then commit suicide',
+ '2 boys sitting inside van were shot and killed in school parking lot',
+ 'Three victims found dead in school parking lot',
+ 'Two men fatally shot in school parking lot',
+ 'Two adults found fatally shot inside car in front of the school',
+ '11 students shot during planned attack at school',
+ 'Man and woman fatally shot during robbery',
+ 'Indiscriminate attack at school']
+        for (var i = 0; i < summary.length; i++) {
+            numDesks = casualty[i]
+            // Darken the required number of desks
+            var desks = document.getElementsByClassName('desk');
+            for (var j = 0; j < numDesks; j++) {
+                desks[deskIndex].style.filter = "grayscale(100%)";
+                deskIndex ++;
+            }
+            
+            // Print the description to the right division
+            var date = dates[i]
+            var description = summary[i];
+            var rightDiv = document.getElementById('right');
+            rightDiv.innerHTML = '<p>' + date + '<br>' + description + '</p>';
+            
+            // Wait for 3 seconds before moving to the next row
+            if (i < summary.length - 1) {
+                setTimeout(function() {
+                    rightDiv.innerHTML = '';
+                }, interval - level * deskIndex);
+            }
+        }
+        // for (var j = 0; j < deskIndex; j++) {
+        //   desks[j].classList.add('colored');
+        // }
+    </script>
+    
+  </body>
+</html>
