@@ -1,46 +1,38 @@
-const desks = document.getElementById("desks");
-const right = document.getElementById("right");
-
-// Read the CSV file
-fetch("data.csv")
-  .then(response => response.text())
-  .then(text => {
-    const rows = text.trim().split("\n").slice(1); // Trim whitespace and skip header row
-    const numRows = rows.length;
-    let i = 0;
-
-    // Function to update the simulation for a given row in the CSV
-    const updateSimulation = (row) => {
-      const values = row.split(",");
-      const numDeaths = parseInt(values[1]);
-      const description = values[2];
-
-      // Update the simulation
-      const numDesks = desks.children.length;
-      const numBlackDesks = numDesks - desks.querySelectorAll(".black").length;
-      const numNewBlackDesks = Math.min(numBlackDesks, numDeaths);
-      const newDesks = document.createDocumentFragment();
-      for (let i = 0; i < numNewBlackDesks; i++) {
-        const desk = document.createElement("div");
-        desk.classList.add("desk", "black");
-        newDesks.appendChild(desk);
+async function darkenDesks() {
+  // Read data from the CSV file
+  var csvFile = 'data.csv'; // replace with your file name
+  var response = await fetch(csvFile);
+  var data = await response.text();
+  
+  // Split the CSV file into rows and iterate through each row
+  var rows = data.trim().split('\n');
+  var deskIndex = 0
+  var interval = 2000
+  var level = 10
+  for (var i = 0; i < rows.length; i++) {
+      // Split each row into columns and get the number of desks to darken
+      var cols = rows[i].split(',');
+      var numDesks = parseInt(cols[0]);
+      
+      // Darken the required number of desks
+      var desks = document.getElementsByClassName('desk');
+      for (var j = 0; j < numDesks; j++) {
+          desks[deskIndex].style.filter = "grayscale(100%)";
+          deskIndex ++;
       }
-      desks.appendChild(newDesks);
+      
+      // Print the description to the right division
+      var description = cols[1];
+      var rightDiv = document.getElementById('right');
+      rightDiv.innerHTML = '<p>' + description + '</p>';
+      
+      // Wait for 3 seconds before moving to the next row
+      if (i < rows.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, interval - level * deskIndex));
+          rightDiv.innerHTML = '';
+      }
+  }
+}
 
-      // Display the description
-      right.innerText = description;
-    };
-
-    // Function to move to the next row in the CSV and update the
-    const row = rows[i];
-    updateSimulation(row);
-  
-    i++;
-    setTimeout(nextRow, 5000); // Wait 5 seconds before moving to the next row
-  });
-  
-  nextRow();
-
-
-
-  
+// Call the function to start the simulation
+darkenDesks();
