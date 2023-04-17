@@ -119,7 +119,7 @@
             }
             
             // Print the description to the right division
-            var description = cols[1].replace(/\\/g, '');
+            var description = cols[1].replace(/"/g, '');
             var rightDiv = document.getElementById('right');
             rightDiv.innerHTML = '<p>' + description + '</p>';
             
